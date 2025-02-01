@@ -25,6 +25,7 @@ pydot = "^3.0.4"
 sqlalchemy-schemadisplay = "^2.0"
 eralchemy = "^1.5.0"
 langchain-experimental = "^0.3.4"
+transformers = "^4.48.2"
 
 
 [tool.poetry.group.dev.dependencies]
