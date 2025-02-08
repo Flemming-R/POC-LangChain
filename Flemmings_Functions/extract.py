@@ -69,3 +69,16 @@ def extract_schema(db_path, sample_rows=2, verbose=True):
     
     conn.close()
     return schema
+
+import re
+def extract_sql_statement(text: str) -> str:
+    """
+    Extracts the SQL statement from a given text, starting from "SELECT" 
+    until the first semicolon ";".
+    """
+    pattern = r'(SELECT.*?;)'
+    match = re.search(pattern, text, re.IGNORECASE | re.DOTALL)
+    if match:
+        return match.group(1).strip()
+    return ""
+
