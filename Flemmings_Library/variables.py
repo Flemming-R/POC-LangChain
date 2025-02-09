@@ -48,3 +48,28 @@ chat_prompt_template_sql = ChatPromptTemplate.from_messages([
     )
 ])
 
+
+prompt_sql_fix_template = ChatPromptTemplate.from_messages([
+    SystemMessagePromptTemplate.from_template(
+        "You are a helpful SQL assistant and you will help me to fix my SQL query for my {db_dialect}-Database. I will show you the database schema, the question and the error that I got.\n"
+        "Please only answer based on the provided information.\n"
+    ),
+    HumanMessagePromptTemplate.from_template(
+        "User Question: {question}\n"
+        "SQL Query: {query}\n"
+        "Error: {error}\n"
+        "Database-Schema: {schema_info}\n"
+    )
+])
+
+answer_prompt_template = ChatPromptTemplate.from_messages([
+    SystemMessagePromptTemplate.from_template(
+        "You are a helpful SQL assistant. Based on the SQL query and its execution result, provide a concise final answer to the user's question."
+    ),
+    HumanMessagePromptTemplate.from_template(
+        "User Question: {question}\n"
+        "SQL Query: {query}\n"
+        "Execution Result: {execution_result}\n\nPlease provide your final answer:"
+    )
+])
+
