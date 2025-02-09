@@ -1,6 +1,6 @@
 
 import sqlite3
-def extract_schema(db_path, sample_rows=2, verbose=True):
+def extract_schema(db_path, sample_rows=1, verbose=True):
     """
     Extrahiert das Schema aller Tabellen in der SQLite-Datenbank und gibt
     – abhängig vom Parameter verbose – entweder die Ergebnisse aus oder liefert sie als Dictionary zurück.
