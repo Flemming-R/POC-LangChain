@@ -71,14 +71,29 @@ def extract_schema(db_path, sample_rows=1, verbose=True):
     return schema
 
 import re
-def extract_sql_statement(text: str) -> str:
-    """
-    Extracts the SQL statement from a given text, starting from "SELECT" 
-    until the first semicolon ";".
-    """
-    pattern = r'(SELECT.*?;)'
-    match = re.search(pattern, text, re.IGNORECASE | re.DOTALL)
-    if match:
-        return match.group(1).strip()
-    return ""
 
+def extract_select_query(llm_output):
+    """
+    Extrahiert ein SELECT-SQL-Statement aus einem gegebenen String.
+
+    Die Funktion durchsucht den übergebenen Text nach einem SQL-SELECT-Statement,
+    das mit "SELECT" (großgeschrieben) beginnt und mit einem Semikolon (;) endet.
+    Die Suche berücksichtigt auch mehrzeilige Abfragen.
+
+    Parameter:
+    llm_output (str): Der Text, der das SQL-Statement enthalten könnte.
+
+    Rückgabe:
+    str oder None: Gibt das gefundene SELECT-Statement zurück, falls vorhanden,
+                   andernfalls None.
+    """
+    # Regex-Muster für SELECT-Statements (nur großgeschriebenes SELECT)
+    pattern = r'(SELECT\s.*?;)'  # Sucht nach "SELECT" bis zum nächsten Semikolon
+
+    # Suche nach der Query
+    match = re.search(pattern, llm_output, re.DOTALL)
+
+    if match:
+        return match.group(1).strip()  # Gibt die gefundene Query zurück
+    else:
+        return None  # Keine Query gefunden

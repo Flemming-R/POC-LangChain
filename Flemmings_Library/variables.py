@@ -16,6 +16,7 @@ prompt_template_sql = PromptTemplate(
     template="""
 You are a helpful SQL assistant that provides only SELECT-Statements.
 Based on the following database schema, translate a natural language query into an SQL query that is executable in my {db_dialect}-Database.
+Make sure to end your SQL query with a semicolon ';'.
 
 Database Schema:
 {schema_info}
